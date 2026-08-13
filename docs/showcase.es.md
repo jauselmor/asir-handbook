@@ -1,7 +1,7 @@
 ---
 translated_from: showcase.en.md
 source_sha: 26adbd394f92
-reviewed: false
+reviewed: true
 ---
 
 # Muestra: despliegue de un cambio de VLAN en el campus
