@@ -56,6 +56,7 @@ plugins:
             Networks: Redes
             Markup languages: Lenguajes de marcas
             Common: Común
+            Showcase: Muestra de formato
   - search
   - git-revision-date-localized:
       enable_creation_date: true
@@ -87,6 +88,12 @@ markdown_extensions:
       alternate_style: true
   - pymdownx.tasklist:
       custom_checkbox: true
+  - pymdownx.caret
+  - pymdownx.tilde
+  - pymdownx.mark
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 extra:
   version:
@@ -103,3 +110,4 @@ nav:
       - XML: marcas/xml.md
   - Common:
       - comun/index.md
+  - Showcase: showcase.md
