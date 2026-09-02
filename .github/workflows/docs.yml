@@ -49,5 +49,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Traer gh-pages si existe
+        run: git fetch origin gh-pages:gh-pages || true
       - name: Publicar con mike
         run: uv run mike deploy --push --update-aliases 2026-27 latest
