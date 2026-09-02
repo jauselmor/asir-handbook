@@ -1,0 +1,41 @@
+{
+  "$schema_comment": "Hooks de verificación. Los ejecuta el harness, no el agente, así que no se pueden saltar.",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run scripts/check_curriculum.py 2>&1 | tail -3",
+            "description": "Tras cada edición, valida la trazabilidad de criterios de evaluación."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./init.sh > /tmp/par_init.log 2>&1 && echo '[harness] init.sh OK' || (echo '[harness] init.sh FALLÓ — revisa /tmp/par_init.log' && tail -25 /tmp/par_init.log)",
+            "description": "Antes de cerrar sesión, verificación completa."
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(./init.sh)",
+      "Bash(uv run scripts/*)",
+      "Bash(uv run mkdocs build*)",
+      "Bash(git status)",
+      "Bash(git diff*)"
+    ],
+    "deny": [
+      "Bash(git push*)",
+      "Bash(git commit*)"
+    ]
+  }
+}

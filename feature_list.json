@@ -1,0 +1,384 @@
+{
+  "project": "par-handbook",
+  "module": "0370",
+  "description": "Material del módulo 0370 (PAR) del CFGS ASIR. Sitio MkDocs bilingüe con backend docente.",
+  "rules": {
+    "one_in_progress_at_a_time": true,
+    "human_gate_before_implementation": "sólo para sdd_level=full",
+    "valid_status": [
+      "pending",
+      "spec_ready",
+      "in_progress",
+      "done",
+      "blocked"
+    ],
+    "english_is_source_of_truth": true,
+    "spanish_is_mandatory": true,
+    "every_declared_ce_must_exist_in_curriculum": true,
+    "curriculum_source": "harness/curriculum.yml"
+  },
+  "types": {
+    "layout_config": {
+      "sdd_level": "none",
+      "human_gate": false,
+      "writes": [
+        "mkdocs.yml",
+        "docs/stylesheets/"
+      ],
+      "bilingual": false
+    },
+    "content_theory": {
+      "sdd_level": "full",
+      "human_gate": true,
+      "writes": [
+        "docs/units/"
+      ],
+      "bilingual": true,
+      "teacher_file": false
+    },
+    "content_lab": {
+      "sdd_level": "full",
+      "human_gate": true,
+      "writes": [
+        "docs/labs/"
+      ],
+      "bilingual": true,
+      "teacher_file": true
+    },
+    "content_lab_update": {
+      "sdd_level": "light",
+      "human_gate": false,
+      "writes": [
+        "docs/labs/"
+      ],
+      "bilingual": true,
+      "teacher_file": true,
+      "additive_only": true
+    },
+    "pedagogy_eval": {
+      "sdd_level": "full",
+      "human_gate": true,
+      "writes": [
+        "teacher/assessment/"
+      ],
+      "bilingual": false
+    }
+  },
+  "features": [
+    {
+      "id": "up01_network_basics",
+      "type": "content_theory",
+      "unit": "UP1",
+      "title": "Introducción a las Redes de Datos",
+      "status": "pending",
+      "sdd_level": "full",
+      "target": {
+        "en": "docs/units/up01-network-basics.en.md",
+        "es": "docs/units/up01-network-basics.es.md"
+      },
+      "teacher": null,
+      "dependencies": [],
+      "spec_dir": "specs/up01_network_basics/",
+      "curriculum": {
+        "RA1": [
+          "a",
+          "b",
+          "c",
+          "g",
+          "h"
+        ]
+      },
+      "context": {
+        "hours": 12,
+        "term": 1
+      }
+    },
+    {
+      "id": "up02_architecture",
+      "type": "content_theory",
+      "unit": "UP2",
+      "title": "Arquitectura de Red y Modelos de Referencia",
+      "status": "pending",
+      "sdd_level": "full",
+      "target": {
+        "en": "docs/units/up02-architecture.en.md",
+        "es": "docs/units/up02-architecture.es.md"
+      },
+      "teacher": null,
+      "dependencies": [
+        "up01_network_basics"
+      ],
+      "spec_dir": "specs/up02_architecture/",
+      "curriculum": {
+        "RA1": [
+          "d",
+          "e",
+          "f"
+        ]
+      },
+      "context": {
+        "hours": 18,
+        "term": 1
+      }
+    },
+    {
+      "id": "up03_physical_media",
+      "type": "content_theory",
+      "unit": "UP3",
+      "title": "Medios Físicos e Infraestructura de Red - PRL",
+      "status": "pending",
+      "sdd_level": "full",
+      "target": {
+        "en": "docs/units/up03-physical-media.en.md",
+        "es": "docs/units/up03-physical-media.es.md"
+      },
+      "teacher": null,
+      "dependencies": [
+        "up02_architecture"
+      ],
+      "spec_dir": "specs/up03_physical_media/",
+      "curriculum": {
+        "RA2": [
+          "a",
+          "b",
+          "c",
+          "h"
+        ]
+      },
+      "context": {
+        "hours": 20,
+        "term": 1
+      }
+    },
+    {
+      "id": "up04_wireless",
+      "type": "content_theory",
+      "unit": "UP4",
+      "title": "Tecnologías de Redes Inalámbricas WLAN",
+      "status": "pending",
+      "sdd_level": "full",
+      "target": {
+        "en": "docs/units/up04-wireless.en.md",
+        "es": "docs/units/up04-wireless.es.md"
+      },
+      "teacher": null,
+      "dependencies": [
+        "up03_physical_media"
+      ],
+      "spec_dir": "specs/up04_wireless/",
+      "curriculum": {
+        "RA2": [
+          "a",
+          "e",
+          "f",
+          "g"
+        ]
+      },
+      "context": {
+        "hours": 20,
+        "term": 1
+      }
+    },
+    {
+      "id": "up05_ip_addressing",
+      "type": "content_theory",
+      "unit": "UP5",
+      "title": "Direccionamiento Lógico IP (IPv4 e IPv6)",
+      "status": "pending",
+      "sdd_level": "full",
+      "target": {
+        "en": "docs/units/up05-ip-addressing.en.md",
+        "es": "docs/units/up05-ip-addressing.es.md"
+      },
+      "teacher": null,
+      "dependencies": [
+        "up04_wireless"
+      ],
+      "spec_dir": "specs/up05_ip_addressing/",
+      "curriculum": {
+        "RA2": [
+          "d"
+        ],
+        "RA6": [
+          "d",
+          "e",
+          "f"
+        ]
+      },
+      "context": {
+        "hours": 25,
+        "term": 2
+      }
+    },
+    {
+      "id": "up06_switching_vlans",
+      "type": "content_theory",
+      "unit": "UP6",
+      "title": "Configuración y Administración de Switches y VLANs",
+      "status": "pending",
+      "sdd_level": "full",
+      "target": {
+        "en": "docs/units/up06-switching-vlans.en.md",
+        "es": "docs/units/up06-switching-vlans.es.md"
+      },
+      "teacher": null,
+      "dependencies": [
+        "up05_ip_addressing"
+      ],
+      "spec_dir": "specs/up06_switching_vlans/",
+      "curriculum": {
+        "RA3": [
+          "a",
+          "b",
+          "c",
+          "d",
+          "e",
+          "f",
+          "g",
+          "h",
+          "i",
+          "j"
+        ],
+        "RA5": [
+          "a",
+          "b",
+          "c",
+          "d",
+          "e",
+          "f",
+          "g"
+        ]
+      },
+      "context": {
+        "hours": 25,
+        "term": 2
+      }
+    },
+    {
+      "id": "up07_network_services",
+      "type": "content_theory",
+      "unit": "UP7",
+      "title": "Servicios de Soporte de Red (DHCP, SNMP, DNS)",
+      "status": "pending",
+      "sdd_level": "full",
+      "target": {
+        "en": "docs/units/up07-network-services.en.md",
+        "es": "docs/units/up07-network-services.es.md"
+      },
+      "teacher": null,
+      "dependencies": [
+        "up06_switching_vlans"
+      ],
+      "spec_dir": "specs/up07_network_services/",
+      "curriculum": {
+        "RA2": [
+          "i"
+        ],
+        "RA4": [
+          "h"
+        ]
+      },
+      "context": {
+        "hours": 20,
+        "term": 2
+      }
+    },
+    {
+      "id": "up08_routing",
+      "type": "content_theory",
+      "unit": "UP8",
+      "title": "Enrutamiento Estático y Dinámico (RIPv2, OSPF)",
+      "status": "pending",
+      "sdd_level": "full",
+      "target": {
+        "en": "docs/units/up08-routing.en.md",
+        "es": "docs/units/up08-routing.es.md"
+      },
+      "teacher": null,
+      "dependencies": [
+        "up07_network_services"
+      ],
+      "spec_dir": "specs/up08_routing/",
+      "curriculum": {
+        "RA4": [
+          "a",
+          "b",
+          "c",
+          "d",
+          "e",
+          "f",
+          "g"
+        ],
+        "RA6": [
+          "a",
+          "b",
+          "c",
+          "g",
+          "h"
+        ]
+      },
+      "context": {
+        "hours": 25,
+        "term": 3
+      }
+    },
+    {
+      "id": "up09_wan_nat",
+      "type": "content_theory",
+      "unit": "UP9",
+      "title": "Acceso a Internet desde la LAN y Tecnologías WAN",
+      "status": "pending",
+      "sdd_level": "full",
+      "target": {
+        "en": "docs/units/up09-wan-nat.en.md",
+        "es": "docs/units/up09-wan-nat.es.md"
+      },
+      "teacher": null,
+      "dependencies": [
+        "up08_routing"
+      ],
+      "spec_dir": "specs/up09_wan_nat/",
+      "curriculum": {
+        "RA7": [
+          "a",
+          "b",
+          "c",
+          "d",
+          "e",
+          "f"
+        ]
+      },
+      "context": {
+        "hours": 18,
+        "term": 3
+      }
+    },
+    {
+      "id": "up10_acls",
+      "type": "content_theory",
+      "unit": "UP10",
+      "title": "Filtrado de Tráfico mediante ACLs",
+      "status": "pending",
+      "sdd_level": "full",
+      "target": {
+        "en": "docs/units/up10-acls.en.md",
+        "es": "docs/units/up10-acls.es.md"
+      },
+      "teacher": null,
+      "dependencies": [
+        "up09_wan_nat"
+      ],
+      "spec_dir": "specs/up10_acls/",
+      "curriculum": {
+        "RA4": [
+          "i",
+          "j"
+        ]
+      },
+      "context": {
+        "hours": 17,
+        "term": 3
+      }
+    }
+  ]
+}

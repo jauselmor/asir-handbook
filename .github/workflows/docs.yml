@@ -4,51 +4,50 @@ on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]
 
 permissions:
   contents: write
 
 jobs:
-  build:
+  verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0          # git-revision-date and mike both need full history
-
       - uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
+      - run: uv sync
 
-      # Compliance gate: no publishing without complete, reviewed Spanish.
-      - name: Check translations
+      # Las mismas comprobaciones que init.sh, por separado, para que el log
+      # diga exactamente cuál ha fallado.
+      - name: Trazabilidad del currículo
+        run: uv run scripts/check_curriculum.py
+      - name: Estructura de las páginas
+        run: uv run scripts/check_structure.py
+      - name: Traducciones
         run: uv run scripts/check_translations.py
-
+      - name: Backend docente
+        run: uv run scripts/check_teacher.py
+      - name: Fuentes normativas
+        run: uv run scripts/check_sources.py
       - name: Build
         run: uv run mkdocs build --strict
 
   deploy:
-    needs: build
+    needs: verify
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       - uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
-
-      - name: Configure git
+      - run: uv sync
+      - name: Configurar git
         run: |
-          git config user.name "github-actions[bot]"
+          git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      # Rolling deploy of the current academic year. Bump CURSO each September;
-      # previous years stay frozen and reachable via the version selector.
-      - name: Deploy with mike
-        env:
-          CURSO: "2025-26"
-        run: uv run mike deploy --push --update-aliases "$CURSO" latest
+      - name: Publicar con mike
+        run: uv run mike deploy --push --update-aliases 2026-27 latest

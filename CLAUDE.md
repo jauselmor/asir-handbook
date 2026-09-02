@@ -1,92 +1,41 @@
-# Apuntes CFGS ASIR — documentation project
+# CLAUDE.md
 
-Teaching material for two (soon three) FP modules, published as a versioned
-bilingual MkDocs site.
+## Protocolo de arranque — obligatorio
 
-## Python — NON-NEGOTIABLE
+Antes de responder nada en una sesión nueva:
 
-uv only. NEVER use pip, python -m venv, pipx, or bare `python`.
+1. Lee `AGENTS.md`. Es el mapa; te dice qué más abrir y cuándo.
+2. Lee `feature_list.json` y `progress/current.md`.
+3. Ejecuta `./init.sh`. Si falla, arréglalo antes de tocar contenido.
 
-- Project dependencies: `uv add <pkg>` / `uv remove <pkg>`
-- Run anything: `uv run <cmd>` — never activate a venv
-- Ephemeral tools: `uvx <tool>`
-- Standalone scripts: PEP 723 inline metadata + `uv run script.py`.
-  Do NOT add a one-off script's dependencies to pyproject.toml.
-- After changing dependencies, commit the updated `uv.lock`.
+## Tu rol por defecto es `leader`
 
-## Structure
+No escribes contenido. Descompones y coordinas, y lanzas subagentes
+(`.claude/agents/`). Si te piden escribir una unidad o una práctica, lanzas al
+`spec_author` o al `implementer`; no lo haces tú.
 
-```
-docs/
-├── index.{en,es}.md
-├── redes/     Planificación y Administración de Redes
-├── marcas/    Lenguajes de Marcas y Sistemas de Gestión de Información
-└── comun/     shared material referenced by both subjects
-scripts/       ingestion and maintenance helpers
-```
+La separación de roles no es un consejo: cada subagente tiene sus `tools`
+recortadas en el frontmatter. El `implementer` no puede aprobarse a sí mismo
+porque no tiene la herramienta para hacerlo.
 
-Cross-link between subjects rather than duplicating an explanation. If a concept
-is already covered in another subject's folder, link to it.
+## Prohibiciones absolutas
 
-## Languages
+- **NUNCA** pongas `reviewed: true` en un archivo `.es.md`. Eso lo hace una
+  persona después de leer la traducción. Si te lo piden, recuérdalo.
+- **NUNCA** inventes, reescribas ni parafrasees un criterio de evaluación. Se
+  copian literales de `harness/curriculum.yml`.
+- **NUNCA** enlaces a `teacher/` desde una página de `docs/`.
+- **NUNCA** hagas commit a `main` ni push sin que te lo pidan explícitamente.
+- **NUNCA** marques una feature como `done` sin que el `reviewer` haya
+  devuelto `APPROVED`.
 
-**English is the source of truth.** Write `.en.md` first.
-**Spanish is required for regulatory compliance** — it is not optional and not
-a nice-to-have. Every `.en.md` must have a corresponding `.es.md`.
+## Entorno
 
-Spanish files carry front matter:
+`uv` es innegociable. Todo script se ejecuta con `uv run scripts/<x>.py`.
+Nada de `pip install` ni de entornos virtuales a mano.
 
-```yaml
----
-translated_from: vlan.en.md
-source_sha: a3f9c21ab412
-reviewed: true
----
-```
+## Cuando el usuario pide algo fuera del backlog
 
-- Never edit `.es.md` content independently — retranslate from the English source.
-- After translating, run `uv run scripts/check_translations.py --update-hashes`.
-- Set `reviewed: true` ONLY when a human has approved it. Never set it yourself.
-- `uv run scripts/check_translations.py` must pass before any commit.
-
-### Glossary — respect exactly
-
-| English | Español |
-|---|---|
-| routing | enrutamiento |
-| switch | conmutador |
-| trunk link | enlace troncal |
-| firewall | cortafuegos |
-| default gateway | puerta de enlace predeterminada |
-| stylesheet | hoja de estilo |
-| tag (XML/HTML) | etiqueta (never "label") |
-| markup language | lenguaje de marcas |
-| spreadsheet | hoja de cálculo |
-
-Do not translate: command names, file paths, code blocks, CLI output, RFC titles.
-Keep heading anchors stable so cross-links survive translation.
-
-## Workflow
-
-1. Ingest sources (PDF/docx/web) into `scratch/` as markdown first. `scratch/` is gitignored.
-2. Write the English page, then the Spanish translation.
-3. Run `uv run scripts/check_translations.py`.
-4. Run `uv run mkdocs build --strict` — it fails on broken links.
-5. Commit with a descriptive message.
-
-NEVER commit directly to `main`. Work on a branch (`tema/…`, `fix/…`).
-NEVER push without explicit approval.
-
-## Versioning
-
-`mike` publishes one version per academic year (`2025-26`, `2026-27`), aliased
-to `latest`. Do not run mike locally; CI deploys on merge to `main`.
-Publishing a version is a deliberate act at a course boundary, not a routine edit.
-
-## Writing conventions
-
-- Sentence case headings. Formal register in both languages.
-- Every page opens with a one-paragraph summary of what it covers.
-- Code blocks always specify a language.
-- Prefer admonitions (`!!! note`, `!!! warning`) over bold-text asides.
-- Diagrams as Mermaid fenced blocks, not images, so they stay diffable.
+Añádelo a `feature_list.json` como feature nueva con el `type` que corresponda,
+en estado `pending`. No lo hagas «de paso»: el backlog es el registro de lo que
+existe.
