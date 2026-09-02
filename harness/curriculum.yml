@@ -1,0 +1,407 @@
+# Currículo oficial — Planificación y Administración de Redes (PAR)
+#
+# FUENTE DE VERDAD del gate de trazabilidad. Ningún CE se inventa, se reescribe
+# ni se abrevia aquí: el texto es el oficial, copiado literalmente de la norma.
+# Toda página o práctica que declare un CE se valida contra este archivo.
+#
+# Los bloques marcados `status: draft` son propuestas mías, no normativa ni
+# decisión tuya: necesitan tu aprobación antes de que el gate los dé por buenos.
+
+# ---------------------------------------------------------------------------
+# Trazabilidad normativa
+#
+# `scripts/check_sources.py` recorre esta lista, descarga cada fuente con
+# fetch=auto, calcula su sha256 y lo compara con `fingerprint`. Si cambia,
+# el CI falla y te obliga a revisar qué se ha modificado antes de seguir.
+# Las fuentes con fetch=manual no se pueden descargar automáticamente, así
+# que el script solo avisa cuando `checked_on` supera `review_every_days`.
+# ---------------------------------------------------------------------------
+sources:
+
+  - id: RD-1629-2009
+    title: >-
+      Real Decreto 1629/2009, por el que se establece el título de Técnico
+      Superior en Administración de Sistemas Informáticos en Red y se fijan
+      sus enseñanzas mínimas.
+    scope: estatal
+    defines: [resultados_aprendizaje, criterios_evaluacion, contenidos_basicos, duracion_minima]
+    url: https://www.boe.es/eli/es/rd/2009/10/30/1629
+    eli: https://www.boe.es/eli/es/rd/2009/10/30/1629
+    identifier: BOE-A-2009-18355
+    published: 2009-11-18
+    status: vigente
+    fetch: auto
+    fingerprint: 7dcb5f0152526cd3
+    checked_on: 2026-09-02
+    notes: >-
+      Los 58 CE de este archivo se han cotejado uno a uno contra el anexo I,
+      módulo 0370. Coinciden literalmente.
+
+  - id: ORDEN-36-2012
+    title: >-
+      ORDEN 36/2012, de 22 de junio, de la Conselleria de Educación, Formación
+      y Empleo, por la que se establece el currículo del ciclo en la Comunitat
+      Valenciana.
+    scope: autonomico
+    defines: [contenidos_minimos]
+    url: https://dogv.gva.es/datos/2012/07/06/pdf/2012_6644.pdf
+    published: 2012-07-06
+    status: derogada_parcialmente
+    superseded_by: DECRETO-114-2025
+    still_in_force: >-
+      La parte de contenidos mínimos se mantiene vigente pese a la derogación
+      general (criterio del docente, pendiente de contrastar).
+    fetch: manual              # dogv.gva.es bloquea el acceso automatizado (robots.txt)
+    fingerprint: null
+    checked_on: null
+    review_every_days: 180
+
+  - id: DECRETO-114-2025
+    title: DECRETO 114/2025, de 29 de julio, del Consell.
+    scope: autonomico
+    defines: [ordenacion, carga_horaria, fp_dual, proyecto_intermodular]
+    url: https://dogv.gva.es/datos/2025/08/04/pdf/2025_29742_es.pdf
+    eli: https://dogv.gva.es/es/eli/es-vc/d/2025/07/29/114
+    identifier: DOGV-2025-29742
+    published: 2025-07-29
+    published_dogv: 2025-08-04
+    status: vigente
+    fetch: manual              # dogv.gva.es bloquea el acceso automatizado (robots.txt)
+    fingerprint: null
+    checked_on: null
+    review_every_days: 180
+    notes: >-
+      Documento único: la ordenación, la carga horaria de 200 h, la FP Dual
+      obligatoria desde primer curso y el Proyecto Intermodular salen todos de
+      aquí. Deroga la ORDEN 36/2012. Preferir el ELI sobre la URL del PDF: el
+      permalink sobrevive a las reorganizaciones del servidor de DOGV.
+
+module:
+  code: "0370"
+  name: Planificación y Administración de Redes
+  short: PAR
+  cycle: ASIR
+  region: Comunitat Valenciana
+  year: 1
+  ects: 12
+  hours_state: 110             # RD 1629/2009, enseñanzas mínimas — verificado
+  hours_region: 200            # DOGV-2025-29742 — sin verificar
+  hours_used: 200              # el que valida el gate de temporalización
+
+# ---------------------------------------------------------------------------
+# Resultados de aprendizaje y criterios de evaluación
+# Texto literal de RD-1629-2009, anexo I, módulo 0370. NO EDITAR a mano.
+# ---------------------------------------------------------------------------
+source_of_truth: RD-1629-2009
+verified_on: 2026-09-02
+
+learning_outcomes:
+
+  - id: RA1
+    statement: >-
+      Reconoce la estructura de las redes de datos identificando sus elementos
+      y principios de funcionamiento.
+    criteria:
+      a: Se han identificado los factores que impulsan la continua expansión y evolución de las redes de datos.
+      b: Se han diferenciado los distintos medios de transmisión utilizados en las redes.
+      c: Se han reconocido los distintos tipos de red y sus topologías.
+      d: Se han descrito las arquitecturas de red y los niveles que las componen.
+      e: Se ha descrito el concepto de protocolo de comunicación.
+      f: Se ha descrito el funcionamiento de las pilas de protocolos en las distintas arquitecturas de red.
+      g: Se han presentado y descrito los elementos funcionales, físicos y lógicos, de las redes de datos.
+      h: Se han diferenciado los dispositivos de interconexión de redes atendiendo al nivel funcional en el que se encuadran.
+
+  - id: RA2
+    statement: >-
+      Integra ordenadores y periféricos en redes cableadas e inalámbricas,
+      evaluando su funcionamiento y prestaciones.
+    criteria:
+      a: Se han identificado los estándares para redes cableadas e inalámbricas.
+      b: Se han montado cables directos, cruzados y de consola.
+      c: Se han utilizado comprobadores para verificar la conectividad de distintos tipos de cables.
+      d: Se ha utilizado el sistema de direccionamiento lógico IP para asignar direcciones de red y máscaras de subred.
+      e: Se han configurado adaptadores de red cableados e inalámbricos bajo distintos sistemas operativos.
+      f: Se han integrado dispositivos en redes cableadas e inalámbricas.
+      g: Se ha comprobado la conectividad entre diversos dispositivos y adaptadores inalámbricos sobre distintas configuraciones.
+      h: Se han utilizado aplicaciones para representar el mapa físico y lógico de una red.
+      i: Se ha monitorizado la red mediante aplicaciones basadas en el protocolo SNMP.
+
+  - id: RA3
+    statement: >-
+      Administra conmutadores estableciendo opciones de configuración para su
+      integración en la red.
+    criteria:
+      a: Se han conectado conmutadores entre sí y con las estaciones de trabajo.
+      b: Se ha interpretado la información que proporcionan los «leds» del conmutador.
+      c: Se han utilizado distintos métodos para acceder al modo de configuración del conmutador.
+      d: Se han identificado los archivos que guardan la configuración del conmutador.
+      e: Se ha administrado la tabla de direcciones MAC del conmutador.
+      f: Se ha configurado la seguridad del puerto.
+      g: Se ha actualizado el sistema operativo del conmutador.
+      h: Se han utilizado los comandos proporcionados por el sistema operativo del conmutador que permiten hacer el seguimiento de posibles incidencias.
+      i: Se ha verificado el funcionamiento del Spanning Tree Protocol en un conmutador.
+      j: Se han modificado los parámetros que determinan el proceso de selección del puente raíz.
+
+  - id: RA4
+    statement: >-
+      Administra las funciones básicas de un «router» estableciendo opciones de
+      configuración para su integración en la red.
+    criteria:
+      a: Se ha interpretado la información que proporcionan los «leds» del «router».
+      b: Se han utilizado distintos métodos para acceder al modo de configuración del «router».
+      c: Se han identificado las etapas de la secuencia de arranque del «router».
+      d: Se han utilizado los comandos para la configuración y administración básica del «router».
+      e: Se han identificado los archivos que guardan la configuración del «router» y se han gestionado mediante los comandos correspondientes.
+      f: Se han configurado rutas estáticas.
+      g: Se han utilizado los comandos proporcionados por el sistema operativo del «router» que permiten hacer el seguimiento de posibles incidencias.
+      h: Se ha configurado el «router» como servidor de direcciones IP dinámicas.
+      i: Se han descrito las capacidades de filtrado de tráfico del «router».
+      j: Se han utilizado comandos para gestionar listas de control de acceso.
+
+  - id: RA5
+    statement: Configura redes locales virtuales identificando su campo de aplicación.
+    criteria:
+      a: Se han descrito las ventajas que presenta la utilización de redes locales virtuales (VLANs).
+      b: Se han implementado VLANs.
+      c: Se ha realizado el diagnóstico de incidencias en VLANs.
+      d: Se han configurado enlaces troncales.
+      e: Se ha utilizado un router para interconectar diversas VLANs.
+      f: Se han descrito las ventajas que aporta el uso de protocolos de administración centralizada de VLANs.
+      g: Se han configurado los conmutadores para trabajar de acuerdo con los protocolos de administración centralizada.
+
+  - id: RA6
+    statement: >-
+      Realiza tareas avanzadas de administración de red analizando y utilizando
+      protocolos dinámicos de encaminamiento.
+    criteria:
+      a: Se ha configurado el protocolo de enrutamiento RIPv1.
+      b: Se han configurado redes con el protocolo RIPv2.
+      c: Se ha realizado el diagnóstico de fallos en una red que utiliza RIP.
+      d: Se ha valorado la necesidad de utilizar máscaras de longitud variable en IPv4.
+      e: Se ha dividido una red principal en subredes de distintos tamaños con VLSM.
+      f: Se han realizado agrupaciones de redes con CIDR.
+      g: Se ha habilitado y configurado OSPF en un «router».
+      h: Se ha establecido y propagado una ruta por defecto usando OSPF.
+
+  - id: RA7
+    statement: >-
+      Conecta redes privadas a redes públicas identificando y aplicando
+      diferentes tecnologías.
+    criteria:
+      a: Se han descrito las ventajas e inconvenientes del uso de la traducción de direcciones de red (NAT).
+      b: Se ha utilizado NAT para realizar la traducción estática de direcciones de red.
+      c: Se ha utilizado NAT para realizar la traducción dinámica de direcciones de red.
+      d: Se han descrito las características de las tecnologías «Frame Relay», RDSI y ADSL.
+      e: Se han descrito las analogías y diferencias entre las tecnologías «Wifi» y «Wimax».
+      f: Se han descrito las características de las tecnologías UMTS y HSDPA.
+
+# ---------------------------------------------------------------------------
+# Unidades de programación
+# `covers` es la asignación CE -> UP que valida el gate de cobertura.
+# ---------------------------------------------------------------------------
+units:
+
+  - id: UP1
+    title: Introducción a las Redes de Datos
+    hours: 12
+    term: 1
+    covers: { RA1: [a, b, c, g, h] }
+
+  - id: UP2
+    title: Arquitectura de Red y Modelos de Referencia
+    hours: 18
+    term: 1
+    covers: { RA1: [d, e, f] }
+
+  - id: UP3
+    title: Medios Físicos e Infraestructura de Red - PRL
+    hours: 20
+    term: 1
+    covers: { RA2: [a, b, c, h] }
+
+  - id: UP4
+    title: Tecnologías de Redes Inalámbricas WLAN
+    hours: 20
+    term: 1
+    covers: { RA2: [a, e, f, g] }
+
+  - id: UP5
+    title: Direccionamiento Lógico IP (IPv4 e IPv6)
+    hours: 25
+    term: 2
+    covers:
+      RA2: [d]
+      RA6: [d, e, f]
+
+  - id: UP6
+    title: Configuración y Administración de Switches y VLANs
+    hours: 25
+    term: 2
+    covers:
+      RA3: [a, b, c, d, e, f, g, h, i, j]
+      RA5: [a, b, c, d, e, f, g]
+
+  - id: UP7
+    title: Servicios de Soporte de Red (DHCP, SNMP, DNS)
+    hours: 20
+    term: 2
+    disputed: true
+    dispute: >-
+      La matriz del apartado 4 de tu programación no asigna ningún RA a esta UP.
+      Le asigno los CE cuyo contenido imparte.
+    covers:
+      RA2: [i]              # SNMP
+      RA4: [h]              # router como servidor DHCP
+
+  - id: UP8
+    title: Enrutamiento Estático y Dinámico (RIPv2, OSPF)
+    hours: 25
+    term: 3
+    covers:
+      RA4: [a, b, c, d, e, f, g]
+      RA6: [a, b, c, g, h]
+
+  - id: UP9
+    title: Acceso a Internet desde la LAN y Tecnologías WAN
+    hours: 18
+    term: 3
+    covers:
+      RA7: [a, b, c, d, e, f]
+
+  - id: UP10
+    title: Filtrado de Tráfico mediante ACLs
+    hours: 17
+    term: 3
+    disputed: true
+    dispute: >-
+      Tu matriz la asigna a RA7 (todo NAT y WAN). Los contenidos básicos del
+      RD sitúan las ACL en «Configuración y administración básica de routers»,
+      que es RA4. Corrección respaldada por la norma, no por criterio propio.
+    covers:
+      RA4: [i, j]
+
+# ---------------------------------------------------------------------------
+# CE sin cobertura. El gate falla mientras esta lista tenga entradas con
+# `decision: pending`.
+# ---------------------------------------------------------------------------
+uncovered: []
+
+# Contenidos que exige el RD y que tus UP no recogen explícitamente.
+rd_content_gaps:
+  - topic: Diseño de redes locales a tres capas (núcleo, distribución, acceso)
+    rd_section: Configuración de redes virtuales
+    suggested_unit: UP6
+    decision: pending
+  - topic: NAT inverso
+    rd_section: Configuración del acceso a Internet desde una LAN
+    suggested_unit: UP9
+    decision: pending
+
+# Incoherencias dentro del propio RD. Documentadas para no reabrir la
+# discusión cada curso.
+rd_inconsistencies:
+  - note: >-
+      Los CE 6.g y 6.h exigen OSPF, pero los contenidos básicos del módulo solo
+      recogen RIPv1 y RIPv2. El CE manda sobre el contenido: OSPF se imparte.
+  - note: >-
+      Los CE 7.d, 7.e y 7.f exigen Frame Relay, RDSI, WiMAX, UMTS y HSDPA, pero
+      ninguna de esas tecnologías aparece en los contenidos básicos del módulo.
+
+# Contenido que impartes y que no mapea a ningún CE. Es el "techo" de los
+# principios: se declara para que el gate no lo confunda con relleno.
+extension:
+  - topic: DNS
+    unit: UP7
+    note: Ningún CE del módulo menciona resolución de nombres.
+  - topic: IPv6
+    unit: UP5
+    note: Los CE de direccionamiento solo hablan de IPv4.
+  - topic: RSTP / MSTP
+    unit: UP6
+    note: RA3.i solo exige STP.
+  - topic: MetroEthernet, LTE, 5G
+    unit: UP9
+    note: >-
+      Extienden el linaje que exigen RA7.d y RA7.f. Los CE se cubren
+      describiendo las tecnologías originales; LTE/5G son el techo.
+
+# ---------------------------------------------------------------------------
+# FP Dual (DECRETO-114-2025). PROPUESTA — requiere tu aprobación.
+# El gate comprueba que todo CE de `consolidated_in_company` está también
+# cubierto por alguna UP en el centro: la empresa consolida, no sustituye.
+# ---------------------------------------------------------------------------
+dual:
+  status: draft
+  hours_in_company: null       # PENDIENTE: verificar en el Decreto 114/2025
+
+  consolidated_in_company:
+    - ce: RA1.g
+      rationale: Reconocimiento de elementos funcionales en un CPD real.
+    - ce: RA1.h
+      rationale: Identificación de electrónica de red real por nivel funcional.
+    - ce: RA2.b
+      rationale: Montaje de latiguillos y cableado sobre infraestructura real.
+    - ce: RA2.c
+      rationale: Certificación de cableado con instrumentación de empresa.
+    - ce: RA2.f
+      rationale: Integración de dispositivos en la red productiva.
+    - ce: RA2.h
+      rationale: Documentación del mapa físico y lógico de una red real.
+    - ce: RA2.i
+      rationale: Monitorización SNMP de infraestructura en producción.
+
+  retained_in_centre:
+    reason: >-
+      Configuración destructiva o sobre equipo productivo que una empresa no
+      cede a alumnado de primer curso. Se evalúa íntegramente en el centro.
+    ra: [RA3, RA4, RA5, RA6, RA7]
+
+  preparatory_activities:
+    - id: PREP1
+      description: Simulación previa en Packet Tracer del escenario de la empresa.
+      before: incorporacion
+    - id: PREP2
+      description: PRL específica de trabajo en rack, altura y herramienta de corte.
+      before: incorporacion
+      links_unit: UP3
+    - id: PREP3
+      description: Documentación de red con la misma plantilla que usará en empresa.
+      before: incorporacion
+      links_unit: UP1
+
+  coordination:
+    tutor_empresa:
+      instrument: null         # PENDIENTE: definir el instrumento de seguimiento
+      frequency: null
+      evidence: null
+    notes: >-
+      Falta decidir cómo se registra la evidencia técnica del tutor de empresa
+      y con qué periodicidad. Sin esto el apartado no está completo.
+
+# ---------------------------------------------------------------------------
+# Proyecto Intermodular (DECRETO-114-2025). PROPUESTA — requiere tu aprobación.
+# ---------------------------------------------------------------------------
+intermodular:
+  status: draft
+  scope: >-
+    El módulo de PAR aporta al Proyecto Intermodular de primer curso la fase de
+    diseño lógico y físico de la red, el direccionamiento IP con VLSM y la
+    segmentación de seguridad mediante VLANs, que sirven de base para que los
+    módulos de Sistemas Operativos e Implantación Web desplieguen sus servicios
+    asociados.
+  contributes_ce:
+    - RA2.d                    # direccionamiento IP
+    - RA2.h                    # mapa físico y lógico
+    - RA5.b                    # implementación de VLANs
+    - RA5.d                    # enlaces troncales
+    - RA5.e                    # enrutamiento inter-VLAN
+    - RA6.e                    # VLSM
+    - RA6.f                    # CIDR
+  deliverable: >-
+    Diseño de red documentado (topología, plan de direccionamiento y plan de
+    segmentación) entregado antes del tercer trimestre para que el resto de
+    módulos construyan sobre él.
+  downstream_modules:
+    - "0369 Implantación de sistemas operativos"
+    - "0376 Implantación de aplicaciones web"
+  milestone_term: 2

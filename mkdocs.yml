@@ -1,67 +1,43 @@
-site_name: Apuntes CFGS ASIR
-site_url: https://jauselmor.github.io/asir-handbook/
-site_author: Jaime Selva
-repo_url: https://github.com/jauselmor/asir-handbook
-edit_uri: edit/main/docs/
+site_name: PAR — Network Planning and Administration
+site_description: Módulo 0370 · CFGS Administración de Sistemas Informáticos en Red
+docs_dir: docs
+# teacher/ queda fuera de docs_dir a propósito. Ver teacher/README.md.
 
 theme:
   name: material
   language: en
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue grey
+      accent: indigo
+      toggle: { icon: material/weather-night, name: Dark mode }
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue grey
+      accent: indigo
+      toggle: { icon: material/weather-sunny, name: Light mode }
   features:
     - navigation.tabs
     - navigation.sections
     - navigation.top
-    - navigation.indexes
-    - search.suggest
-    - search.highlight
+    - toc.integrate
     - content.code.copy
-    - content.action.edit
-    - toc.follow
-  palette:
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: indigo
-      accent: indigo
-      toggle:
-        icon: material/brightness-7
-        name: Cambiar a modo oscuro
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: indigo
-      accent: indigo
-      toggle:
-        icon: material/brightness-4
-        name: Cambiar a modo claro
+    - search.highlight
 
 plugins:
-  # i18n MUST come first: it rewrites the file set every other plugin sees.
+  - search
   - i18n:
       docs_structure: suffix
-      fallback_to_default: false
-      reconfigure_material: true
-      reconfigure_search: true
       languages:
         - locale: en
-          name: English
           default: true
+          name: English
           build: true
         - locale: es
           name: Español
           build: true
-          site_name: Apuntes CFGS ASIR
-          theme:
-            language: es
-          nav_translations:
-            Home: Inicio
-            Networks: Redes
-            Markup languages: Lenguajes de marcas
-            Common: Común
-            Showcase: Muestra de formato
-  - search
-  - git-revision-date-localized:
-      enable_creation_date: true
-      fallback_to_build_date: true
-  - mermaid2
+          # sin fallback: si falta el español, el build falla. Es deliberado.
   - minify:
       minify_html: true
 
@@ -69,45 +45,29 @@ markdown_extensions:
   - admonition
   - attr_list
   - md_in_html
-  - footnotes
   - tables
-  - toc:
-      permalink: true
+  - footnotes
   - pymdownx.details
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: !!python/name:mermaid2.fence_mermaid_custom
-  - pymdownx.highlight:
-      anchor_linenums: true
-      line_spans: __span
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
-  - pymdownx.tasklist:
-      custom_checkbox: true
-  - pymdownx.caret
-  - pymdownx.tilde
-  - pymdownx.mark
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
-
-extra:
-  version:
-    provider: mike
-    alias: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      base_path: ["docs"]   # ACOTADO. Nunca la raíz: dejaría inyectar teacher/.
+  - toc:
+      permalink: true
 
 nav:
   - Home: index.md
-  - Networks:
-      - redes/index.md
-      - VLANs: redes/vlan.md
-  - Markup languages:
-      - marcas/index.md
-      - XML: marcas/xml.md
-  - Common:
-      - comun/index.md
-  - Showcase: showcase.md
+
+# Mermaid se renderiza en cliente vía superfences. Se evita a propósito el
+# plugin mermaid2: valida la URL de la librería en tiempo de build, lo que hace
+# que `mkdocs build --strict` dependa de la red.
+extra_javascript:
+  - https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs

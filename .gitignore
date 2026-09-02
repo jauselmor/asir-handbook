@@ -1,7 +1,6 @@
 site/
 scratch/
-design.md
 .venv/
 __pycache__/
 *.pyc
-.cache/
+.DS_Store
