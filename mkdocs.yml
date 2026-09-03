@@ -71,3 +71,12 @@ nav:
 # que `mkdocs build --strict` dependa de la red.
 extra_javascript:
   - https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs
+
+extra:
+  alternate:
+    - name: English
+      link: /asir-handbook/latest/
+      lang: en
+    - name: Español
+      link: /asir-handbook/latest/es/
+      lang: es
